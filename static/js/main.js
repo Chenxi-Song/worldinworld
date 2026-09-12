@@ -1,7 +1,7 @@
 /* World in World — plain JS, no dependencies. */
 (function () {
   "use strict";
-  var V = "static/videos/", Q = "?v=12";          // Q: cache-buster (older versions lived at the same URLs)
+  var V = "static/videos/", Q = "?v=13";          // Q: cache-buster (older versions lived at the same URLs)
 
   /* ---------------- hero: opening video plays once (title at 4 s), then hands over to the wall loop ---------------- */
   var hero = document.getElementById("hero"), stage = hero.querySelector(".stage");
@@ -48,22 +48,26 @@
     var now = Date.now();
     return all.filter(function (v) { return v.src && !v.__ready && !v.paused && now - v.__started < LOAD_TIMEOUT; }).length;
   }
+  function inView(v) { var r = v.getBoundingClientRect(); return r.bottom > 0 && r.top < window.innerHeight; }
   function schedule() {
     if (filmPlaying) return;
-    var slots = MAX_LOADING - loadingNow(), cands = [];
+    var slots = MAX_LOADING - loadingNow(), cands = [], pendingInView = false;
     all.forEach(function (v) {
       if (!v.__want || v.dataset.hold) return;
       if (v.__ready) { if (v.paused) v.play().catch(function () {}); }            // buffered: just resume
-      else if (v.paused || !v.src) cands.push(v);
+      else { if (inView(v)) pendingInView = true; if (v.paused || !v.src) cands.push(v); }
     });
+    // tiles actually on screen come first; the ones just below the fold only start once nothing on screen is waiting
+    if (pendingInView) cands = cands.filter(inView);
     cands.sort(function (a, b) { return a.getBoundingClientRect().top - b.getBoundingClientRect().top; });
     cands.slice(0, Math.max(0, slots)).forEach(function (v) { hydrate(v); v.play().catch(function () {}); });
   }
   var io = ("IntersectionObserver" in window) ? new IntersectionObserver(function (es) {
     es.forEach(function (e) {
       var v = e.target; v.__want = e.isIntersecting;
-      if (e.isIntersecting) { if (!v.poster && v.dataset.src && !v.__nothumb) v.poster = poster(v.dataset.src); }
-      else if (!v.paused) v.pause();
+      if (e.isIntersecting) { if (!v.poster && v.dataset.src) v.poster = poster(v.dataset.src); }
+      else if (v.src && !v.__ready) release(v);        // scrolled past before it was ready: stop its download, keep the bandwidth for what is on screen
+      else if (!v.paused) v.pause();                   // buffered: keep it, just pause
     });
     schedule();
   }, { rootMargin: "160px 0px", threshold: 0.01 }) : null;
