@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>World in World</title>
+<meta name="description" content="World in World: explore the world inside a video — 360° free exploration, bullet time, cross-model memory reading and video editing with one frozen video world model.">
+<link rel="stylesheet" href="static/css/main.css?v=12">
+</head>
+<body>
+
+<!-- ============ HERO: two baked videos — opening (4 sources → 4 re-shots → 4x4 wall, plays once, title at 4 s)
+                 then the wall loop (native loop, seamless). One stream at a time: nothing can desync. ============ -->
+<header class="hero" id="hero">
+  <div class="stage">
+    <video id="heroVideo" muted playsinline autoplay preload="auto" poster="static/images/posters/hero.jpg?v=6">
+      <source src="static/videos/hero_open.mp4?v=6" type="video/mp4">
+    </video>
+    <video id="heroGrid" class="grid-loop" muted playsinline loop preload="none">
+      <source src="static/videos/hero_grid.mp4?v=6" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-text" id="heroText">
+    <h1>World in World</h1>
+    <p class="tag">Explore the world with world models</p>
+    <p class="authors">
+      <a href="https://chenxi-song.github.io/" target="_blank" rel="noopener">Chenxi Song</a> &nbsp;·&nbsp;
+      <a href="https://2hitee.github.io/" target="_blank" rel="noopener">Yanming Yang</a> &nbsp;·&nbsp;
+      <a href="https://icoz69.github.io/" target="_blank" rel="noopener">Chi Zhang</a>
+    </p>
+    <p class="affil">AGI Lab, Westlake University</p>
+    <div class="btns"><!-- Hugging Face is still a placeholder -->
+      <a class="btn" href="https://arxiv.org/abs/2609.11548" target="_blank" rel="noopener">Paper</a>
+      <a class="btn" href="https://github.com/Westlake-AGI-Lab/WorldinWorld" target="_blank" rel="noopener">Code</a>
+      <a class="btn" href="#hero">Hugging Face</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ ONE LINE + DEMO FILM (light) ============ -->
+<section class="light intro" id="film">
+  <div class="wrap">
+    <p class="one">Explore the world inside a video.</p>
+    <p class="one-sub">360° free exploration · bullet time · cross-model memory reading · video editing — all in one.</p>
+    <video class="film" controls playsinline preload="metadata" poster="static/images/posters/demo_film.jpg?v=6">
+      <source src="static/videos/demo_film.mp4?v=6" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<!-- ============ 01 FREE RE-CINEMATOGRAPHY (dark): source + three re-shots per page ============ -->
+<section class="dark" id="free">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">01</span><h2>Free Re-cinematography &amp; Exploration</h2><span class="hint">Take a video as input and explore the world inside it freely.</span></div>
+    <div class="pager" data-cols="2"
+         data-pages="src_bx,bx_free,bx_mem,bx_mem2|src_rbb,rbb_free,rbb_mem,rbb_f1|src_t3,t3_free,t3_mem,t3_arc|src_tk,tk_mem2,tk_mem,tk_free2"></div>
+  </div>
+</section>
+
+<!-- ============ 360° (light, sub-section of 01): one pair per page ============ -->
+<section class="light tight" id="three60">
+  <div class="wrap">
+    <div class="sec-head sub"><h2>360° Re-cinematography</h2><span class="hint">orbit around the scene · turn around from inside it</span></div>
+    <div class="pager" data-cols="2"
+         data-pages="dance360,dance_rot|c3_360,c3_rot|cook360,cook_rot|tennis360,basket360"></div>
+  </div>
+</section>
+
+<!-- ============ MORE CASES (dark, sub-section of 01): 1x3 per page, one scene's paths together ============ -->
+<section class="dark tight" id="more">
+  <div class="wrap">
+    <div class="sec-head sub"><h2>More Cases</h2><span class="hint">free camera paths on more videos</span></div>
+    <div class="pager" data-cols="3"
+         data-pages="w7_rot,w7_rotb,w7_rot_d|w10_rot,w10_arc,w10_fa|w4_rot,w4_rotb,w5_fr1|w9_rot,w9_fb,c3_e1|rba_mem,rba_free,pv01_do075|pv04_or60ccw,lib_goat,lib_elephant"></div>
+  </div>
+</section>
+
+<!-- ============ 02 BULLET TIME (light): 1x2 per page, same scene together; the last page fits 3 in the same width ============ -->
+<section class="light" id="bullet">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">02</span><h2>Bullet Time</h2><span class="hint">freeze the moment, move the camera</span></div>
+    <div class="pager" data-cols="fit"
+         data-pages="milk_arc,melon_bt|bd_combo,bd_rotR|tennis360,tennis_arc|bear_rotL,bear_spin|straw_arc,basket360|clownring,bxbt_free|flare_combo,flare60,fl_arc90"></div>
+  </div>
+</section>
+
+<!-- ============ 03 VIDEO EDITING (dark): drag to compare edited (left) vs original (right) ============ -->
+<section class="dark" id="edit">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">03</span><h2>Video Editing</h2><span class="hint">drag the bar — edited video (with the original inset) over the original</span></div>
+    <div class="cmp-pager" data-cols="3" data-mode="edit"
+         data-pages="camel_edit,carturn_edit,cows_edit|lucia_edit,w7_edit,tit_edit|gmp_edit,bear_edit,hike_redshirt|plp_crown,bear_polar,cows_strawhat"></div>
+  </div>
+</section>
+
+<!-- ============ 04 MORE FEATURES ============ -->
+<section class="light" id="stream">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">04</span><h2>More Features</h2></div>
+    <h3 class="sub">Live Streaming</h3>
+    <div class="two">
+      <div class="player" data-src="static/videos/stream_dance.mp4" data-rate="2"></div>
+      <div class="player" data-src="static/videos/stream_robot.mp4" data-rate="2"></div>
+    </div>
+    <p class="note">Recorded on 3 × A100. Generation speed scales with more GPUs.</p>
+  </div>
+</section>
+
+<section class="dark" id="dual">
+  <div class="wrap">
+    <h3 class="sub">Cross-Model Communication</h3>
+    <div class="dual" id="dualBlock"></div>
+    <div class="nav" id="dualNav"><button class="arrow" data-dir="-1">←</button><div class="dots" id="dualDots"></div><button class="arrow" data-dir="1">→</button></div>
+  </div>
+</section>
+
+<section class="light" id="transfer">
+  <div class="wrap">
+    <h3 class="sub">Motion Transfer</h3>
+    <p class="sub-hint">top-left inset: the source video · top-right inset (orange): the driving video whose motion is transferred</p>
+    <div class="grid" data-cols="3" data-videos="mt_dancer_e3,mt_dancer_e5,mt_wyg_arc"></div>
+  </div>
+</section>
+
+<section class="dark" id="switch">
+  <div class="wrap">
+    <h3 class="sub">View Switching</h3>
+    <div class="pager" data-cols="3" data-pages="src_w10,swright,swback|src_wfrt,wfrt_swR,wfrt_swL"></div>
+  </div>
+</section>
+
+<section class="light" id="stab">
+  <div class="wrap">
+    <h3 class="sub">Video Stabilisation</h3>
+    <div class="two" data-sync><!-- shake_src.mp4 = the source cut 1:1 to the stabilised clip (same length, same clock) -->
+      <div class="player src" data-src="static/videos/shake_src.mp4" data-rate="2" data-label="handheld input"></div>
+      <div class="player" data-src="static/videos/shake.mp4" data-rate="2" data-label="stabilised"></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="long">
+  <div class="wrap">
+    <h3 class="sub">Long-Horizon Generation</h3>
+    <div class="two">
+      <div class="player" data-src="static/videos/longB.mp4" data-rate="2" data-label="40 s · one continuous rollout"></div>
+      <div class="player" data-src="static/videos/long_wyg.mp4" data-rate="2" data-label="26 s · one continuous rollout"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 COMPARISONS & ABLATIONS (light, folded: nothing loads until opened) ============ -->
+<section class="light" id="compare">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">05</span><h2>Comparisons &amp; Ablations</h2><span class="hint">frustum memory · 3D body prior · trajectory accuracy</span></div>
+    <button class="fold" type="button" aria-expanded="false" aria-controls="compareBody">Show <span class="chev">▾</span></button>
+    <div class="fold-body" id="compareBody" hidden>
+      <h3 class="sub"><span class="abc">a</span>Frustum Memory</h3>
+      <p class="sub-hint">look away, then look back — the first look and the look back are boxed: <span class="ok">green</span> = with memory, <span class="bad">red</span> = without</p>
+      <div class="grid" data-cols="4" data-videos="mem_dancer_off,mem_dancer_on,mem_rbb_off,mem_rbb_on"
+           data-caps="without memory,with memory,without memory,with memory"></div>
+      <h3 class="sub"><span class="abc">b</span>3D Body Prior</h3>
+      <p class="sub-hint">same camera path — with the rendered 3D body vs without; <span class="bad">red</span> box = the motion breaks without it</p>
+      <div class="grid" data-cols="4" data-videos="ab_e5_body,ab_e5_nobody,ab_e3_body,ab_e3_nobody"
+           data-caps="with 3D body,without 3D body,with 3D body,without 3D body"></div>
+      <h3 class="sub"><span class="abc">c</span>Trajectory Accuracy</h3>
+      <p class="sub-hint">drag the bar — depth-warped input (left, holes in black) vs generated (right)</p>
+      <div class="cmp-pager" data-cols="4" data-mode="warp"
+           data-pages="lib_bear,lib_boat,lib_lucia,lib_elephant,lib_goat,pv04_or60ccw,pv01_do075,pv03_or30ccw"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BIBTEX (dark) ============ -->
+<section class="dark" id="bib">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">§</span><h2>BibTeX</h2></div>
+    <pre class="bib">@article{song2026worldinworld,
+  title   = {World in World: Explore the World with World Models},
+  author  = {Song, Chenxi and Yang, Yanming and Zhang, Chi},
+  journal = {arXiv preprint arXiv:2609.11548},
+  year    = {2026}
+}</pre>
+    <p class="welcome">Welcome to try it out.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="dark"><div class="wrap">All results come from one frozen video world model.</div></footer>
+
+<script src="static/js/main.js?v=12"></script>
+</body>
+</html>
